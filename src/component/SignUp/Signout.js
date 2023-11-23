@@ -4,7 +4,7 @@ const SignOut = () => {
 
     const onSignout = () => {
         alert('회원 탈퇴되었습니다:)')
-        axios.delete(`${REACT_APP_LAMBDA_API_URL}/signout/${sessionStorage.getItem('token')}`)
+        axios.delete(`${process.env.REACT_APP_SERVER_URL}/signout/${sessionStorage.getItem('token')}`)
         .then(response => {
             console.log(response.data);
         }).catch(error => {

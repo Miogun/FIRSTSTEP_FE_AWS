@@ -15,7 +15,7 @@ const CommentWrite = ({boardId}) => {
             alert('로그인을 해주세요:)');
             navigate('/login');
         } else {
-            axios.post(`${REACT_APP_LAMBDA_API_URL}/commentWrite`,{token:sessionStorage.getItem('token'), boardId:boardId, content:comment })
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/commentWrite`,{token:sessionStorage.getItem('token'), boardId:boardId, content:comment })
             .then(response => {
                 console.log(response.data);
                 alert('댓글입력이 완료되었습니다.');

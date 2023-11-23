@@ -40,7 +40,7 @@ const BoardViewContent = ({boardId}) =>{
 
     // 게시판 데이터 가져오기
     useEffect(() => {
-        axios.get(`${REACT_APP_LAMBDA_API_URL}/board/detail/${boardId}/${sessionStorage.getItem('token')}`)
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/board/detail/${boardId}/${sessionStorage.getItem('token')}`)
         .then(res => {
             console.log(res)
             console.log(res.data.userData['userId'], res.data.boardData["userId"])
@@ -103,7 +103,7 @@ const BoardViewContent = ({boardId}) =>{
     const handlerEditFinish= () =>{
         // 수정완료 후 데이터 변경
         console.log("수정 : ", boardId, title, content)
-        axios.put(`${REACT_APP_LAMBDA_API_URL}/boardEdit/${boardId}`, {title : title, content : content}, { headers: { 'Content-Type': 'application/json' } })
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/boardEdit/${boardId}`, {title : title, content : content}, { headers: { 'Content-Type': 'application/json' } })
         .then(res => {
             setEdit(!edit);
             // console.log(res)
@@ -117,7 +117,7 @@ const BoardViewContent = ({boardId}) =>{
     const handlerDel = () => {
         if ( userData.userId == boardData.userId) {
             // 게시물 삭제
-            axios.delete(`${REACT_APP_LAMBDA_API_URL}/boardDelete/${boardId}`)
+            axios.delete(`${process.env.REACT_APP_SERVER_URL}/boardDelete/${boardId}`)
             .then(response => {
 
             }).catch(err => console.log(err));
@@ -137,7 +137,7 @@ const BoardViewContent = ({boardId}) =>{
         else{
             // alert("대여 가능");
             console.log(returnDate)
-            axios.put(`${REACT_APP_LAMBDA_API_URL}/boardrent/${userData.userId}`, {boardId:boardId, returnDate:returnDate}, { headers: { 'Content-Type': 'application/json' } })
+            axios.put(`${process.env.REACT_APP_SERVER_URL}/boardrent/${userData.userId}`, {boardId:boardId, returnDate:returnDate}, { headers: { 'Content-Type': 'application/json' } })
             .then(response => {
                 console.log(response.data)
                 if (response.data === 'SUCCESS') {
@@ -152,7 +152,7 @@ const BoardViewContent = ({boardId}) =>{
     }
     const handlerReturn =() => {
         
-        axios.delete(`${REACT_APP_LAMBDA_API_URL}/boardreturn/${boardId}`)
+        axios.delete(`${process.env.REACT_APP_SERVER_URL}/boardreturn/${boardId}`)
         .then(response => {
             console.log(response.data)
             if (response.data === 'SUCCESS') {

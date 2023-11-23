@@ -9,7 +9,7 @@ import BoardList from "./BoardList";
 
 
 function BoardPostList() {
-    const [ posts, setPosts ] = useState({});
+    const [ posts, setPosts ] = useState([]);
     const navigate = useNavigate();
     const limit = 10;
     const [ page, setPage ] = useState(1);
@@ -20,7 +20,7 @@ function BoardPostList() {
     const handlerSearchWord = (e) => {setSearchWord(e.target.value);}
     const handlerSearchWordKey = e => {setSearchWordKey(e.target.value);}
     const clickSearButton = () => {
-        axios.get(`${REACT_APP_LAMBDA_API_URL}/boardlist/${searchWordKey}/${searchWord}`)
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/boardlist/${searchWordKey}/${searchWord}`)
         .then(responce => {
             setPosts(responce.data)
         }).catch(error => console.log(error));
@@ -28,13 +28,15 @@ function BoardPostList() {
     }
 
     useEffect(() => {
-        axios.get(`${REACT_APP_LAMBDA_API_URL}/boardlist`)
+        axios.get(`${process.env.REACT_APP_LAMBDA_API_URL}/board`)
         .then(responce => {
-            setPosts(responce.data)
+            console.log("responce.data",responce.data)
+            console.log(JSON.parse(responce.data))
+            setPosts(JSON.parse(responce.data));
         }).catch(error => console.log(error));
     }, []);
 
-    const item = Object.values(posts);
+    // const item = Object.values(posts);
 
     const goBoardPostList = () => navigate('/login');
 
@@ -65,12 +67,12 @@ function BoardPostList() {
                 </div>
                 
             </div>
-            <BoardList item={item} startat={startat} limit={limit}/>
+            <BoardList posts={posts} startat={startat} limit={limit}/>
 
         </div>
         
 
-        <BoardPagination total={item.length} limit={limit} page={page} setPage={setPage} />
+        <BoardPagination total={posts.length} limit={limit} page={page} setPage={setPage} />
         
         <div className="bt_wrap">
             <button className="on" onClick={authCheck}>등록하기</button>

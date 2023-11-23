@@ -17,7 +17,7 @@ const ChangePassword = () => {
 
     const ChangePassword = () => {
         console.log('현재 비밀번호 일치')
-        axios.put(`${REACT_APP_LAMBDA_API_URL}/changepassword/${sessionStorage.getItem('token')}`, {newPassword:newPassword})
+        axios.put(`${process.env.REACT_APP_SERVER_URL}/changepassword/${sessionStorage.getItem('token')}`, {newPassword:newPassword})
         .then(response => {
             console.log(response)
             if (response.data === "SUCCESS") {
@@ -33,7 +33,7 @@ const ChangePassword = () => {
 
     const onClickChnagePassword = () => {
         if (newPassword === confirmNewPassword) {
-            axios.post(`${REACT_APP_LAMBDA_API_URL}/checkpassword/${sessionStorage.getItem('token')}`, {constpassword:constpassword})
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/checkpassword/${sessionStorage.getItem('token')}`, {constpassword:constpassword})
             .then(response => {
                 if (response.data === 'CORRECT') {
                     ChangePassword();

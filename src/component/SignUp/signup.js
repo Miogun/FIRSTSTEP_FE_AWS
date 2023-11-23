@@ -36,7 +36,7 @@ function SignUp() {
 
     }
     const postUser = () => {
-        axios.post(`${REACT_APP_LAMBDA_API_URL}/signup`, 
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/signup`, 
         {ID: ID, password: password, password_confirm: password_confirm, name: name, phoneNumber: phoneNumber }
         , { headers: { 'Content-Type': 'application/json' } })
         .then(response => {

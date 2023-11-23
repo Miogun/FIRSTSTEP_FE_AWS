@@ -9,13 +9,13 @@ const Mypage = () => {
 
     useEffect(() => {
 
-        axios.get(`${REACT_APP_LAMBDA_API_URL}/mypage/${sessionStorage.getItem('token')}`)
+        axios.get(`${process.env.REACT_APP_LAMBDA_API_URL}/mypage/${sessionStorage.getItem('token')}`)
         .then(res => {
             console.log(typeof(sessionStorage.getItem('userId')))
             setRentList(res.data)
         }).catch(error => console.log(error));
         
-        axios.get(`${REACT_APP_LAMBDA_API_URL}/mypage/chageName/${sessionStorage.getItem('token')}`)
+        axios.get(`${process.env.REACT_APP_LAMBDA_API_URL}/mypage/chageName/${sessionStorage.getItem('token')}`)
         .then(res => {
             console.log(res.data["name"])
             setUserName(res.data["name"])

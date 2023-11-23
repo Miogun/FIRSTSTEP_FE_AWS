@@ -12,7 +12,7 @@ const Comment = ({boardId}) => {
 
 
     useEffect(() => {
-        axios.get(`${REACT_APP_LAMBDA_API_URL}/boardlist/${boardId}/commentlist`)
+        axios.get(`${process.env.REACT_APP_SERVER_URL}/boardlist/${boardId}/commentlist`)
         .then(response => {
             setComments(response.data)
             console.log(response.data)

@@ -7,7 +7,7 @@ const CommentList = ({comment, idx, isuser}) => {
     const navigate = useNavigate();
 
     const clickDeleteComment = () => {
-        axios.delete(`${REACT_APP_LAMBDA_API_URL}/commentdelete/${comment.commentId}`)
+        axios.delete(`${process.env.REACT_APP_SERVER_URL}/commentdelete/${comment.commentId}`)
         .then(response => {
             console.log(response.data);
             alert('댓글이 삭제되었습니다.');
