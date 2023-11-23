@@ -45,7 +45,7 @@ const BoardViewContent = ({boardId}) =>{
             console.log(res)
             console.log(res.data.userData['userId'], res.data.boardData["userId"])
             setUserData(res.data.userData)
-            if (res.data == 'DELETE') {
+            if (res.data === 'DELETE') {
                 alert('삭제된 게시물입니다:)')
                 navigate('/board');
             }
@@ -56,7 +56,7 @@ const BoardViewContent = ({boardId}) =>{
             }
             //로그인 0
             //로그인 0 - 로그인 user = 게시물 작성자 user
-            else if(res.data.userData['userId'] == res.data.boardData["userId"]){
+            else if(res.data.userData['userId'] === res.data.boardData["userId"]){
                 // alert("목록 / 수정 / 삭제")
                 // console.log(userId,"==",res.data[0]["userId"], "=> ", (userId==res.data[0]["userId"]))
                 setButtonChk("2")
@@ -65,16 +65,16 @@ const BoardViewContent = ({boardId}) =>{
             //로그인 0 - 로그인 user != 게시물 작성자 user
             else {
                 //게시물 : 대여가능한경우
-                if(res.data.boardData["rent"] == "active"){    
+                if(res.data.boardData["rent"] === "active"){    
                     // alert("대여")
                     setButtonChk("3")       
-                } else if (res.data.boardData['rent'] == 'disable') {
+                } else if (res.data.boardData['rent'] === 'disable') {
                     setButtonChk("0")
                 }
                  //게시물 : 대여중인경우
                 else{
                     //게시물 : 대여중인경우 - 대여한 사람인경우
-                    if(res.data.boardData["rentusreId"] == res.data.userData['userId']){
+                    if(res.data.boardData["rentusreId"] === res.data.userData['userId']){
                         // alert("반납")
                         setButtonChk("4")  
                     }
@@ -87,6 +87,7 @@ const BoardViewContent = ({boardId}) =>{
                 setBoardData(res.data.boardData)
             }
         }).catch(err => console.log(err));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // 상태변수사용해서 textarea 활성하기
@@ -115,7 +116,7 @@ const BoardViewContent = ({boardId}) =>{
     }
     
     const handlerDel = () => {
-        if ( userData.userId == boardData.userId) {
+        if ( userData.userId === boardData.userId) {
             // 게시물 삭제
             axios.delete(`${process.env.REACT_APP_SERVER_URL}/boardDelete/${boardId}`)
             .then(response => {
@@ -206,23 +207,23 @@ const BoardViewContent = ({boardId}) =>{
                 <Link to={'/board'} ><input type="button" id="back" className="list" value="목록"/></Link>
                 {/* {게시물 작성자 = 사용자} */}
                 {/* 수정가능한상태 */}
-                {(buttonChk=="2")&& (!edit) && (<input type="button" id="edit" className="notList" value="수정완료" onClick={handlerEditFinish} />)}
+                {(buttonChk==="2")&& (!edit) && (<input type="button" id="edit" className="notList" value="수정완료" onClick={handlerEditFinish} />)}
                 {/* 수정불가능한상태 */}
-                {(buttonChk=="2")&&(edit) && (<input type="button" id="edit" className="notList" value="수정하기" onClick={handlerEdit} />
+                {(buttonChk==="2")&&(edit) && (<input type="button" id="edit" className="notList" value="수정하기" onClick={handlerEdit} />
                 )}
-                {(buttonChk=="2")&&(edit) && (<input type="button" id="delete" className="notList" value="삭제" onClick={handlerDel} />
+                {(buttonChk==="2")&&(edit) && (<input type="button" id="delete" className="notList" value="삭제" onClick={handlerDel} />
                 )}
 
                 {/* {게시물 작성자 != 사용자} */}
-                {(buttonChk=="5")&&(<input type="button" id="renting" className="notList" value="대여중" onClick={handlerRenting} />
+                {(buttonChk==="5")&&(<input type="button" id="renting" className="notList" value="대여중" onClick={handlerRenting} />
                 )}
-                {(buttonChk=="4")&&(<input type="button" id="return" className="notList" value="반납" onClick={handlerReturn} />
+                {(buttonChk==="4")&&(<input type="button" id="return" className="notList" value="반납" onClick={handlerReturn} />
                 )}
             
-                {(buttonChk=="3")&&(<input type="button" id="rent" className="notList" value="대여" onClick={handlerRent} />
+                {(buttonChk==="3")&&(<input type="button" id="rent" className="notList" value="대여" onClick={handlerRent} />
                 )}
 
-                {(buttonChk=="3")&&(<DatePicker dateFormat='yyyy/MM/dd' minDate={new Date()} className='datePicker' selected={returnDate} onChange={date => setReturnDate(date)}><div style={{ color: "red" }}>Don't forget to check your return date!</div></DatePicker>
+                {(buttonChk==="3")&&(<DatePicker dateFormat='yyyy/MM/dd' minDate={new Date()} className='datePicker' selected={returnDate} onChange={date => setReturnDate(date)}><div style={{ color: "red" }}>Don't forget to check your return date!</div></DatePicker>
                 )}
             </div>
         

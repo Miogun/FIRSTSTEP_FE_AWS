@@ -1,10 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import './Header.css';
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 const Header = () => {
-  const [ userId , setUserId ] = useState('');
 
   const [ isLogin, setIsLogin ] = useState(false);
 

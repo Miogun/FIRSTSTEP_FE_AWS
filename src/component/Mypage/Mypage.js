@@ -38,7 +38,7 @@ const Mypage = () => {
                     <div class="title">대여현황
                     </div>
                     {console.log("rentlist",rentList)}
-                    {rentList != "" ? (
+                    {rentList !== "" ? (
                         <div className="list">
                         <div className="top">                    
                             <div className="list_rent">대여 목록</div>

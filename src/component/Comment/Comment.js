@@ -17,6 +17,7 @@ const Comment = ({boardId}) => {
             setComments(response.data)
             console.log(response.data)
         }).catch(error => console.log(error));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     const item = Object.values(comments);
@@ -28,7 +29,7 @@ const Comment = ({boardId}) => {
 
             {
                 item.slice(startat, startat + limit ).map((comment, idx) => {
-                    if (comment.userId == sessionStorage.getItem('userId')) {
+                    if (comment.userId === sessionStorage.getItem('userId')) {
                         return <CommentList comment={comment} idx={idx} isuser={true}/>
                     } else {
                         return <CommentList comment={comment} idx={idx} isuser={false}/>
